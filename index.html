@@ -140,8 +140,8 @@
   if(a===b&&b===c)return[a,'트리플 '+v];
   if(c-b===1&&b-a===1)return[1.5,'연속 '+v];
   for(let n=1;n<=9;n++)if(v===n*100+n*n)return[1.5,'특수 '+v];
-  if((a===b&&a>4)||(b===c&&b>4)||(a===c&&c>4))return[1.2,'페어(u) '+v];
-  if((a===b&&a<5)||(b===c&&b<5)||(a===c&&c<5))return[.75,'페어(d) '+v];
+  if((a===b&&a>4)||(b===c&&b>4)||(a===c&&c>4))return[1.5,'페어(u) '+v];
+  if((a===b&&a<5)||(b===c&&b<5)||(a===c&&c<5))return[1.2,'페어(d) '+v];
   return[.5,'꽝 '+v]}
  function upd(){$('goal').textContent=f(GOAL+S.debt);
   $('won').textContent=f(S.won);$('chips').textContent=S.chips.toLocaleString()+'칩';$('blood').textContent=S.blood.toLocaleString();
@@ -200,7 +200,7 @@
   `<span class="hd">🎰 3. 플레이 방법</span>
    <ul><li>베팅할 칩 수를 입력(또는 10%·50%·ALL)하고 <b>싸지르다!</b>를 누릅니다.</li>
    <li>숫자 3개가 차례로 멈추고, 조합에 따라 베팅 금액에 배율이 곱해져요.</li></ul>
-   <table><tr><td>777</td><td>×17</td></tr><tr><td>같은 숫자 3개 (111, 222…)</td><td>×해당 숫자</td></tr><tr><td>연속 (123, 234…)</td><td>×1.5</td></tr><tr><td>10,1의자리 숫자가<br>100의자리 숫자의 제곱인 경우 (101, 204, 309…)</td><td>×1.5</td></tr><tr><td>5이상의 두 수가 같은 경우(페어-u)</td><td>×1.2</td></tr><tr><td>5미만의 두 수가 같은 경우(페어-d)</td><td>×.75</td></tr><tr><td>그 외 꽝</td><td>×0.5</td></tr></table>
+   <table><tr><td>777</td><td>×17</td></tr><tr><td>같은 숫자 3개 (111, 222…)</td><td>×해당 숫자</td></tr><tr><td>연속 (123, 234…)</td><td>×1.5</td></tr><tr><td>10,1의자리 숫자가<br>100의자리 숫자의 제곱인 경우 (101, 204, 309…)</td><td>×1.5</td></tr><tr><td>5이상의 두 수가 같은 경우(페어-u)</td><td>×1.5</td></tr><tr><td>5미만의 두 수가 같은 경우(페어-d)</td><td>×1.2</td></tr><tr><td>그 외 꽝</td><td>×0.5</td></tr></table>
    <div class="note">대부분의 결과는 '꽝'(절반만 돌려받음)입니다. 특정 값이 나올 확률은 모두 0.001로 동일합니다.</div>`,
   `<span class="hd">💸 4. 사채와 핏빛코인</span>
    <ul><li>돈이 모자라면 <b>사채</b>를 쓸 수 있어요. 대출금은 <b>핏빛코인(B)</b>으로 지급됩니다. (1,000원당 1개)</li>
