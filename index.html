@@ -21,11 +21,9 @@
   button.s{padding:6px 8px;font-size:12px}
   input{width:100%;padding:8px;border-radius:8px;border:0;font:inherit;background:#0006;color:#fff;text-align:right}
   #msg{min-height:40px;text-align:center;font-weight:800;max-width:440px}
-  .bar{height:8px;background:#000;border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold)}
   .mod{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:10;padding:20px}.mod.on{display:flex}
   .mbx{background:var(--card);border:3px solid var(--gold);border-radius:14px;padding:18px;max-width:340px;width:100%;line-height:1.5}
   .mbx div{display:flex;gap:8px;margin-top:10px}.mbx button,.mbx select{flex:1}
-  .lk{text-align:center;max-width:340px;line-height:1.6}#lt{white-space:pre-line}
   /* 진행 방법 */
   #hlp{max-width:440px;width:100%;margin-bottom:8px;background:#2f2160;border:1px solid var(--gold);color:var(--gold)}
   #m4 .mbx{max-height:88vh;overflow:auto;font-size:14px}
@@ -36,37 +34,52 @@
   #m4 .note{background:#0005;border-radius:8px;padding:8px;font-size:12px;color:#ddd}
   #m4 .dots{justify-content:center;margin:12px 0 0}
   #m4 .dots i{width:8px;height:8px;border-radius:50%;background:#fff4}#m4 .dots i.on{background:var(--gold)}
-  #m5 .mbx{max-height:88vh;display:flex;flex-direction:column}
-  #m5 .hdr{margin:0;justify-content:space-between}
-  #m5 #apl{display:block;overflow:auto;max-height:48vh;margin:8px 0}
-  #m5 .ap{display:flex;align-items:center;gap:10px;padding:8px;margin:0 0 4px;border-radius:10px;background:#0004;border:2px solid transparent}
-  #m5 .ap.on{border-color:var(--gold);background:#ffd23f22}
-  #m5 .ap img{width:36px;height:36px;border-radius:8px}
-  #m5 .ap span{flex:1;text-align:left}
-  #m5 .ap b{color:var(--gold);width:20px;text-align:center}
+  /* 오프닝 컷씬: #cut 안쪽을 통째로 <video>로 교체하면 됨 */
+  #cut{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#6ec6ff,#cfe9ff 60%,#777 60%);display:flex;justify-content:center}
+  #cutbox{position:relative;width:100%;height:100%;max-width:480px;overflow:hidden}
+  #cutbox>*{position:absolute}
+  .walk{bottom:36%;left:-60px;font-size:48px;animation:walk 2.5s linear forwards}@keyframes walk{to{left:30%}}
+  .case{bottom:36%;right:8%;width:110px;height:130px;border:3px solid #fff8;background:#fff3;display:flex;align-items:center;justify-content:center;font-size:56px;opacity:0;animation:pop .4s 2s forwards}
+  .tag{top:12%;left:0;right:0;text-align:center;color:#222;font-weight:800;opacity:0;animation:pop .4s 2.4s forwards;padding:0 10px}
+  .phone{bottom:6%;left:50%;margin-left:-80px;width:160px;background:#111;border:3px solid #444;border-radius:16px;padding:10px;text-align:center;font-size:13px;opacity:0;transform:translateY(40px);animation:up .5s 4.2s forwards}
+  .phone b{display:block;font-size:20px;color:var(--gold)}
+  .poster{top:-300px;left:50%;margin-left:-90px;width:180px;padding:16px 8px;background:var(--red);border:4px solid var(--gold);color:#fff;text-align:center;font-weight:900;font-size:22px;animation:fly 2s 6.8s forwards ease-in}
+  @keyframes fly{to{top:25%;transform:rotate(720deg) scale(1.3)}}@keyframes pop{to{opacity:1}}@keyframes up{to{opacity:1;transform:none}}
+  .skip{position:fixed;right:12px;top:12px;font-size:12px;opacity:.7;z-index:3}
+  /* 엔딩 */
+  #s3{justify-content:flex-start}
+  #end{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:20px;width:100%}
+  #end h2{color:var(--gold);font-size:32px;margin:0}#end p{max-width:360px;line-height:1.5;margin:0}
+  #ew,#ed{text-align:left;width:100%;max-width:360px;line-height:1.7;font-size:14px;background:var(--card);border-radius:12px;padding:12px}
+  #ed{background:#4a1020;border:2px solid var(--red)}
+  .sh{opacity:.5;text-align:center;margin:10px 0 6px;font-size:12px}.lb{opacity:.45;font-weight:400;font-size:11px}.wn{margin-top:10px;font-size:13px;color:var(--gold)}
  </style></head><body>
 <div id="fade"></div>
 
-<div id="s1" class="scr on"><h1>GAMBLE!</h1><div class="bl">- tap to start -</div><button id="rst" class="s" style="margin-top:36px;background:#2a2040;opacity:.6">(시연용) 저장 데이터 초기화</button></div>
+#opening video(차후 수정할 것)
+<div id="s0" class="scr on" style="padding:0;overflow:hidden">
+ <div id="cut"><div id="cutbox">
+  <div class="walk">🚶</div>
+  <div class="case">💩✈️🍲</div>
+  <div class="tag">한정판 플라잉 똥싸개 김치찌개 피규어<br>₩43,960,000</div>
+  <div class="phone">모바일 통장 잔고<b>₩400,000</b>…살 수 있을까?</div>
+  <div class="poster">🎰<br>싸지르다<br>도박장<br>GRAND OPEN</div>
+ </div></div>
+ <div class="skip">탭하여 건너뛰기 ▶▶</div>
+</div>
+
+<div id="s1" class="scr"><h1>GAMBLE!</h1><div class="bl">- tap to start -</div></div>
 
 <div id="s2" class="scr">
  <button id="hlp">❓ 진행 방법 보기</button>
- <div class="box" id="perm" style="display:none">
-  <div class="row"><b>🔐 권한 체크</b><span id="pu"></span></div>
-  <div class="row"><span>기기 관리자</span><span id="p1"></span></div>
-  <div class="row"><span>접근성(앱 제한)</span><span id="p2"></span></div>
-  <div class="row"><span>필수 앱 4개</span><span id="p3"></span></div>
-  <div class="row" style="flex-wrap:wrap"><button class="s" id="pb1">관리자</button><button class="s" id="pb2">접근성</button><button class="s" id="pb3">앱 정보</button><button class="s" id="pb4">배터리</button><button class="s" id="pb5">앱 재선택</button></div>
- </div>
- <div class="box">
-  <div class="row"><span>📱 사용 가능 시간</span><span class="big" id="tm"></span></div>
-  <div class="bar"><i id="tb"></i></div>
+  <div class="box">
+  <div class="row"><span>🎯 목표 (사채 포함)</span><span class="big" id="goal"></span></div>
   <div class="row"><span>💴 원</span><span class="big" id="won"></span></div>
   <div class="row"><span>🪙 칩</span><span class="big" id="chips"></span></div>
   <div class="row"><span>🩸 핏빛코인</span><span class="big red" id="blood"></span></div>
+  <div class="row"><span>💱 칩 환전 시</span><span id="pf"></span></div>
   <div class="row"><span>🔁 플레이 · 환율</span><span id="sp"></span></div>
   <div class="row" id="dr" style="display:none"><span>🏴 사채 잔액</span><span class="big red" id="debt"></span></div>
-  <div class="row" id="dr2" style="display:none"><span>⏱ 다음 자동 상환까지 (현실)</span><span class="big red" id="dtm"></span></div>
  </div>
  <div class="box"><div class="reels"><div class="reel" id="r0">0</div><div class="reel" id="r1">0</div><div class="reel" id="r2">0</div></div></div>
  <div id="msg">베팅할 칩을 정하세요</div>
@@ -82,12 +95,11 @@
   <div class="row"><button class="s" data-w=".5">50%</button><button class="s" data-w="1">ALL</button><button id="buy">칩 환전</button><button id="sell">칩→원</button></div>
  </div>
  <div class="box">
-  <div class="row"><button id="ln" style="flex:1">💸 사채</button><button id="rpb" style="flex:1">상환</button><button id="quit" style="flex:1;background:#6b2a3a">파산신청</button></div>
-  <button id="svb" style="width:100%;margin-top:6px;display:none;background:#2a6b4a">관리자모드 해제 설문</button>
+  <div class="row"><button id="ln" style="flex:1">💸 사채</button><button id="rpb" style="flex:1">상환</button><button id="quit" style="flex:1;background:#6b2a3a">포기</button></div>
  </div>
 </div>
 
-<div id="s3" class="scr"><div class="lk"><h1 style="font-size:36px">🔒 차단</h1><p id="lt"></p><!-- <button id="unl">(시연용) 차단 건너뛰기 ▶</button> --></div></div>
+<div id="s3" class="scr"><div id="end"><h2 id="et"></h2><div id="ee" style="font-size:64px"></div><p id="ep"></p><p id="es" style="opacity:.7;font-size:13px"></p><div id="ew"></div><div id="ed" style="display:none"></div><div style="height:90vh;opacity:.4;font-size:12px">↓</div><button onclick="location.reload()" style="margin-bottom:30px">다시 하기</button></div></div>
 
 <div id="m1" class="mod"><div class="mbx"><b class="red">💸 사채 (복리 3% / 40회)</b><p>사채는 핏빛코인으로 지급됩니다.<br>상환 전 추가 대출 불가.</p>
  <div><button data-l="100000">10만</button><button data-l="360000">36만</button><button data-l="1000000">100만</button></div>
@@ -97,13 +109,6 @@
  <input id="rp" type="number" placeholder="상환할 원" inputmode="numeric">
  <div><button id="rok">상환</button><button id="rall">전액</button><button id="rc" style="background:#6b2a3a">닫기</button></div></div></div>
 
-<div id="m3" class="mod"><div class="mbx"><b>설문조사</b><p>1. 도박을 하게 된 가장 큰 이유는?</p>
- <select id="q1"><option>호기심</option><option>스트레스</option><option>돈 욕심</option><option>기타</option></select>
- <p>2. 잃은 돈을 되찾으려 한 적이 있나요?</p>
- <select id="q2"><option>예</option><option>아니오</option></select>
- <p>3. 앞으로 도박을 하지 않을 수 있나요?</p>
- <select id="q3"><option>예</option><option>노력 중</option><option>모르겠음</option></select>
- <div><button id="sok">제출하고 해제</button><button id="sc" style="background:#6b2a3a">닫기</button></div></div></div>
 
 <div id="modal" class="mod"><div class="mbx"><p id="mt" style="text-align:center"></p><div><button id="my" style="background:#6b2a3a">포기한다</button><button id="mn">계속한다</button></div></div></div>
 
@@ -115,32 +120,21 @@
  <div style="margin-top:6px"><button id="hx" style="background:#6b2a3a;font-size:12px;padding:6px">닫기</button></div>
 </div></div>
 
-<!-- 허용 앱 선택 -->
-<div id="m5" class="mod"><div class="mbx">
- <div class="hdr"><b>필수 앱 선택</b><b id="apc" class="big">0 / 4</b></div>
- <input id="aps" type="text" placeholder="🔍 앱 검색" style="text-align:left;margin-top:8px">
- <div id="apl"></div>
- <p id="apn" class="red" style="margin:0;min-height:18px;font-size:12px"></p>
- <p style="margin:2px 0 0;font-size:12px;opacity:.7">잠금 중에도 쓸 수 있는 필수 앱 4개를 고르세요. 전화·문자는 항상 허용돼요.</p>
- <div><button id="apok" disabled>확정</button></div>
-</div></div>
-
 <script>
  const $=i=>document.getElementById(i);
- // ===== 설정값 (시연 시 여기만 조정) =====
- const KEY='gamble_admin_v1',
-  REPAY_MS=90*60*1000,      // 자동 상환 주기: 현실 1.5시간
-  REPAY_RATIO=.1,           // 1회 자동 상환 비율(사채 잔액 기준)
-  MIN_REPAY=10000,          // 1회 최소 상환액(원)
-  BLOCK_MS=24*3600*1000;    // 파산 차단: 현실 24시간
- let S={won:360000,chips:0,blood:0,spins:0,debt:0,bk:0,busy:false,admin:true,dt:0,ub:0,lr:''},ac;
- function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
- try{const j=JSON.parse(localStorage.getItem(KEY));if(j&&typeof j==='object'){Object.assign(S,j);S.busy=false;if(S.debt&&!S.dt)S.dt=Date.now()}}catch(e){}
+ // ===== 설정값 =====
+ const KEY='gambler_v1',
+    GOAL=43960000,START=400000; // 목표금액 / 초기금액
+ let S={won:START,chips:0,blood:0,spins:0,debt:0,busy:false,W:0,wag:0,ret:0,prin:0,intr:0,loans:0},ac,over=false;
+ function save(){if(over)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+ try{const j=JSON.parse(localStorage.getItem(KEY));if(j&&typeof j==='object'){Object.assign(S,j);S.busy=false}}catch(e){}
  const rate=()=>S.spins<=4000?1000:S.spins<=8000?500:250;
- const f=n=>'₩'+Math.round(n).toLocaleString();
+ const f=n=>(n<0?'-':'')+'₩'+Math.abs(Math.round(n)).toLocaleString();
  function beep(a=988,b=1319){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const t=ac.currentTime;[a,b].forEach((q,i)=>{if(!q)return;const o=ac.createOscillator(),g=ac.createGain();o.type='square';o.frequency.value=q;g.gain.setValueAtTime(.12,t+i*.12);g.gain.exponentialRampToValueAtTime(.001,t+i*.12+.3);o.connect(g).connect(ac.destination);o.start(t+i*.12);o.stop(t+i*.12+.3)})}catch(e){}}
  function go(id,cb){const e=$('fade');e.style.opacity=1;setTimeout(()=>{document.querySelectorAll('.scr').forEach(x=>x.classList.remove('on'));$(id).classList.add('on');cb&&cb();e.style.opacity=0},550)}
- $('s1').onclick=()=>{beep();window.Admin&&Admin.enable();go('s2',()=>{upd();window.Admin&&!S.picked?pick():help(0)})};
+ let cutDone=false;function endCut(){if(cutDone)return;cutDone=true;beep();go('s1')}
+ setTimeout(endCut,10200);$('s0').onclick=endCut;
+ $('s1').onclick=()=>{beep();go('s2',()=>{upd();help(0)})};
  function judge(a,b,c){const v=a*100+b*10+c;
   if(v===777)return[17,'JACKPOT 777!'];
   if(a===b&&b===c)return[a,'트리플 '+v];
@@ -149,15 +143,14 @@
   if((a===b&&a>4)||(b===c&&b>4)||(a===c&&c>4))return[1.2,'페어(u) '+v];
   if((a===b&&a<5)||(b===c&&b<5)||(a===c&&c<5))return[.75,'페어(d) '+v];
   return[.5,'꽝 '+v]}
- const mins=()=>(S.won+S.chips*rate())/1000+S.blood/4;
- function upd(){const m=mins(),h=Math.floor(m/60);
-  $('tm').textContent=h+'시간 '+Math.floor(m%60)+'분';$('tb').style.width=Math.min(100,m/360*100)+'%';
+ function upd(){$('goal').textContent=f(GOAL+S.debt);
   $('won').textContent=f(S.won);$('chips').textContent=S.chips.toLocaleString()+'칩';$('blood').textContent=S.blood.toLocaleString();
   $('sp').textContent=S.spins.toLocaleString()+'회 · 1칩='+f(rate());
-  $('dr').style.display=$('dr2').style.display=S.debt?'flex':'none';$('debt').textContent=f(S.debt)+' · 이자까지 '+(40-S.spins%40)+'회';
+  $('dr').style.display=S.debt?'flex':'none';$('debt').textContent=f(S.debt)+' · 이자까지 '+(40-S.spins%40)+'회';
   const t=S.chips+S.blood;$('bh').textContent='최대 '+t.toLocaleString();$('spin').disabled=S.busy||t<1;
-  $('ln').disabled=S.debt>0||S.busy;$('rpb').disabled=!S.debt;$('svb').style.display=S.bk>0&&S.admin?'block':'none';
-  save();window.Admin&&Admin.setBudget(Math.floor(mins()));if(!S.busy&&S.won<1000&&t<1)bank('파산: 보유 자금이 0원이 되었습니다.')}
+  $('ln').disabled=S.debt>0||S.busy;$('rpb').disabled=!S.debt;const as=S.won+(S.chips+S.blood)*rate();$('pf').textContent=f(S.chips*rate())+' (순손익 '+f(as-S.debt-START)+')';
+  save();if(!over&&!S.busy&&S.won<1000&&t<1)finish('bankrupt')}
+ function chk(){if(S.won-S.debt>=GOAL)finish('goal')}
  // 차감 우선순위 원>칩>블러드
  function pay(a){let p=0,r=rate();let w=Math.min(S.won,a);S.won-=w;p+=w;
   if(p<a&&S.chips){let n=Math.min(S.chips,Math.ceil((a-p)/r));S.chips-=n;p+=n*r}
@@ -167,7 +160,7 @@
  document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>$('bet').value=Math.max(1,Math.floor((S.chips+S.blood)*b.dataset.p)));
  document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>$('ex').value=Math.floor(S.won*b.dataset.w/1000)*1000);
  $('buy').onclick=()=>{const w=Math.floor(+$('ex').value/1000)*1000;if(w<1000||w>S.won){$('msg').textContent='1,000원 단위·보유 원 이내';return}S.won-=w;S.chips+=w/1000;$('ex').value='';beep(600,800);upd()};
- $('sell').onclick=()=>{if(!S.chips)return;S.won+=S.chips*rate();S.chips=0;beep();upd()};
+ $('sell').onclick=()=>{if(!S.chips)return;S.won+=S.chips*rate();S.chips=0;beep();upd();chk()};
  $('spin').onclick=()=>{let b=Math.floor(+$('bet').value);if(!(b>=1)||b>S.chips+S.blood){$('msg').textContent='베팅 칩 확인';return}
   const fromN=Math.min(S.chips,b),fromB=b-fromN;S.chips-=fromN;S.blood-=fromB;S.spins++;S.busy=true;upd();
   const res=[0,1,2].map(()=>Math.random()*10|0),rs=[0,1,2].map(i=>$('r'+i));rs.forEach(r=>r.classList.add('sp'));$('msg').textContent='...';
@@ -175,73 +168,54 @@
   rs.forEach((r,i)=>setTimeout(()=>{r.classList.remove('sp');r.textContent=res[i];beep(500+i*150,0);
    if(i<2)return;clearInterval(iv);
    const[m,t]=judge(...res),pay0=Math.floor(b*m);
+   S.wag+=b;S.ret+=pay0;if(m>=1)S.W++;
    if(fromB>0)S.blood+=pay0;else S.chips+=pay0;
    let x='';
-   if(S.debt&&S.spins%40===0){const I=Math.round(S.debt*.03);S.debt+=I;const p=repay(Math.round(I/2));x=` · 이자 ${f(I)} 중 ${f(p)} 자동차감`}
+   if(S.debt&&S.spins%40===0){const I=Math.round(S.debt*.03);S.debt+=I;S.intr+=I;const p=repay(Math.round(I/2));x=` · 이자 ${f(I)} 중 ${f(p)} 자동차감`}
    S.busy=false;$('msg').textContent=`${t} ×${m} → ${pay0-b>=0?'+':''}${pay0-b}${fromB?' (B)':''}`+x;upd()},700+i*500))};
  // 사채
  $('ln').onclick=()=>$('m1').classList.add('on');$('lc').onclick=()=>$('m1').classList.remove('on');
- document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{const a=+b.dataset.l;S.debt=a;S.dt=Date.now();S.blood+=a/1000;$('m1').classList.remove('on');beep(600,800);$('msg').textContent='사채 '+f(a)+' → 핏빛코인 '+a/1000;upd()});
+ document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{const a=+b.dataset.l;S.debt=a;S.prin+=a;S.loans++;S.blood+=a/1000;$('m1').classList.remove('on');beep(600,800);$('msg').textContent='사채 '+f(a)+' → 핏빛코인 '+a/1000;upd()});
  $('rpb').onclick=()=>{$('rt').textContent='잔액 '+f(S.debt);$('m2').classList.add('on')};$('rc').onclick=()=>$('m2').classList.remove('on');
- $('rok').onclick=()=>{repay(+$('rp').value||0);$('rp').value='';$('m2').classList.remove('on');upd()};
- $('rall').onclick=()=>{repay(S.debt);$('m2').classList.remove('on');upd()};
+ $('rok').onclick=()=>{repay(+$('rp').value||0);$('rp').value='';$('m2').classList.remove('on');upd();chk()};
+ $('rall').onclick=()=>{repay(S.debt);$('m2').classList.remove('on');upd();chk()};
  // 파산
  function ask(t,cb,y='포기한다',n='계속한다'){$('mt').textContent=t;$('my').textContent=y;$('mn').textContent=n;$('modal').classList.add('on');$('mn').onclick=()=>$('modal').classList.remove('on');$('my').onclick=()=>{$('modal').classList.remove('on');cb()}}
- $('quit').onclick=()=>{if(!S.busy)ask('파산을 신청할까요? 24시간 동안 차단됩니다.',()=>bank('파산 신청'))};
- function bank(r){window.Admin&&Admin.lock();const x=Math.min(12,Math.ceil(S.debt/100000));S.won=0;S.chips=0;S.blood=0;S.debt=0;S.dt=0;S.busy=true;S.ub=Date.now()+BLOCK_MS+x*3600000;S.lr=r;save();window.Admin&&Admin.setLockUntil(S.ub);lockUI();go('s3')}
- function unlock(){window.Admin&&Admin.setLockUntil(0);S.ub=0;S.lr='';S.bk++;S.won=60000;S.busy=false;beep();save();go('s2',upd)}
- // $('unl').onclick=unlock; // (시연용) 차단 건너뛰기 — 버튼 주석 해제 시 같이 해제
- // 설문
- $('svb').onclick=()=>$('m3').classList.add('on');$('sc').onclick=()=>$('m3').classList.remove('on');
- $('sok').onclick=()=>{window.Admin&&Admin.release();S.admin=false;$('m3').classList.remove('on');$('msg').textContent='관리자모드가 해제되었습니다. (시뮬레이션)';upd()};
+  $('quit').onclick=()=>{if(S.busy)return;ask('포기하면 칩을 환전하고 사채를 상환한 뒤 게임이 종료됩니다. 정말 포기할까요?',()=>{
+  S.won+=S.chips*rate();S.chips=0;repay(S.debt);S.won+=S.chips*rate();S.chips=0;finish(S.won-S.debt>=GOAL?'goal':'quit')})};
 
  // ===== 진행 방법 알리미 =====
  const HELP=[
-  `<span class="hd">📱 1. 이 게임의 규칙</span>
-   <ul><li>가진 <b>돈 = 휴대폰 사용 시간</b>입니다. <b>1,000원 = 1분</b>이에요.</li>
-   <li>처음에는 <b>360,000원(6시간)</b>으로 시작합니다.</li>
-   <li>돈이 0원이 되면 <b>파산</b> → 앱이 24시간 차단됩니다.</li></ul>
-   <div class="note">화면 맨 위의 '사용 가능 시간'이 남은 시간이에요. 도박을 할수록 이 시간이 줄어드는지 지켜보세요.</div>`,
+  `<span class="hd">🎯 1. 게임 목표</span>
+   <ul><li>길을 걷다 본 <b>한정판 플라잉 똥싸개 김치찌개 피규어(4,396만원)</b>를 사는 것이 목표예요.</li>
+   <li>통장에는 <b>40만원</b>뿐입니다. 룰렛으로 <b>4,396만원</b>을 만들면 목표 달성!</li>
+   <li>목표 달성, <b>포기</b>, 또는 자금이 0원이 되는 <b>파산</b>이 되면 게임이 끝나고 엔딩이 나옵니다.</li></ul>
+   <div class="note">목표 금액은 칩을 원으로 환전해야 달성 처리돼요. 사채를 쓰면 목표 금액이 빚만큼 올라갑니다.</div>`,
   `<span class="hd">🪙 2. 칩 환전</span>
    <ul><li>도박은 <b>칩</b>으로만 할 수 있어요. 원을 <b>1,000원 = 1칩</b>으로 바꿉니다.</li>
    <li>'환전할 원'을 입력하고 <b>칩 환전</b>을 누르세요. (1,000원 단위)</li>
-   <li><b>칩→원</b>은 보유 칩을 전부 원으로 되돌립니다.</li></ul>
+   <li><b>칩→원</b>은 보유 칩을 전부 원으로 되돌립니다. 화면의 '칩 환전 시'에서 예상 수익을 볼 수 있어요.</li></ul>
    <b>칩→원 환율은 플레이 횟수에 따라 떨어집니다</b>
    <table><tr><td>0~4,000회</td><td>1칩 = 1,000원</td></tr><tr><td>4,001~8,000회</td><td>1칩 = 500원</td></tr><tr><td>8,001회~</td><td>1칩 = 250원</td></tr></table>`,
   `<span class="hd">🎰 3. 플레이 방법</span>
    <ul><li>베팅할 칩 수를 입력(또는 10%·50%·ALL)하고 <b>싸지르다!</b>를 누릅니다.</li>
    <li>숫자 3개가 차례로 멈추고, 조합에 따라 베팅 금액에 배율이 곱해져요.</li></ul>
    <table><tr><td>777</td><td>×17</td></tr><tr><td>같은 숫자 3개 (111, 222…)</td><td>×해당 숫자</td></tr><tr><td>연속 (123, 234…)</td><td>×1.5</td></tr><tr><td>10,1의자리 숫자가<br>100의자리 숫자의 제곱인 경우 (101, 204, 309…)</td><td>×1.5</td></tr><tr><td>5이상의 두 수가 같은 경우(페어-u)</td><td>×1.2</td></tr><tr><td>5미만의 두 수가 같은 경우(페어-d)</td><td>×.75</td></tr><tr><td>그 외 꽝</td><td>×0.5</td></tr></table>
-   <div class="note">대부분의 결과는 '꽝'(절반만 돌려받음)입니다. 몇 판 해보며 잃는 속도를 확인해 보세요. 특정 값이 나올 확률은 모두 0.001로 동일합니다..</div>`,
+   <div class="note">대부분의 결과는 '꽝'(절반만 돌려받음)입니다. 특정 값이 나올 확률은 모두 0.001로 동일합니다.</div>`,
   `<span class="hd">💸 4. 사채와 핏빛코인</span>
    <ul><li>돈이 모자라면 <b>사채</b>를 쓸 수 있어요. 대출금은 <b>핏빛코인(B)</b>으로 지급됩니다. (1,000원당 1개)</li>
-   <li>핏빛코인은 시간 가치가 낮아요. <b>1개 = 0.25분</b></li>
    <li>베팅은 <b>일반 칩 → 핏빛코인</b> 순서로 사용됩니다.</li>
    <li>사채는 <b>40판마다 복리 3%</b> 이자가 붙고, 이자의 절반은 자동으로 차감돼요.</li>
    <li>상환 전에는 추가 대출이 불가능합니다. 상환은 <b>원 → 칩 → B</b> 순으로 차감돼요.</li>
-   <li>원금 상환 후 남은 핏빛코인은 일반 칩으로 전한돼요</li>
-   <li>⏱ <b>현실 시간 ${REPAY_MS/3600000}시간마다</b> 사채 잔액의 ${REPAY_RATIO*100}%(최소 ${MIN_REPAY.toLocaleString()}원)가 <b>자동 상환</b>됩니다. 앱을 꺼 두어도 시간은 계속 흘러요.</li></ul>
-   <div class="note">사채를 받고 가만히 있어도 빚은 줄지 않고 내 시간만 깎여요. 빌린 시간은 공짜가 아닙니다.</div>`,
-  `<span class="hd">🔒 5. 파산과 관리자모드</span>
-   <ul><li>모든 자금이 0이 되거나 <b>파산신청</b>을 누르면 최소 <b>현실 24시간</b> 차단됩니다. 앱을 껐다 켜도 남은 시간이 그대로 이어져요.</li>
-   <li>파산 후 남은 채무 금액에 따라 사용이 <b>최대 12시간</b>만큼 추가로 차단돼요.</li>
-   <li>차단이 끝나면 <b>60,000원(1시간)</b>만 다시 지급돼요.</li>
-   <li>한 번이라도 파산하면 <b>관리자모드 해제 설문</b>이 나타납니다. 설문을 제출하면 관리자모드가 해제돼요.</li></ul>
-   <div class="note">⚠️ 이 앱은 도박 예방 교육용 시연(시뮬레이션)입니다. 실제 돈은 오가지 않아요. 도박으로 고민이 있다면 청소년 상담 1388 또는 도박문제 상담 1336에 도움을 요청하세요.</div>`
+   <li>원금 상환 후 남은 핏빛코인은 일반 칩으로 전환돼요.</li>
+   <div class="note">사채를 받고 가만히 있어도 빚은 줄지 않아요. 빌린 돈은 공짜가 아닙니다.</div>`,
+  `<span class="hd">🏁 5. 게임 종료</span>
+   <ul><li><b>목표 달성</b>: 환전·상환 후 남은 돈이 목표 금액에 닿으면 종료돼요.</li>
+   <li><b>포기</b>: 언제든 가능해요. 칩을 환전하고 사채를 갚은 뒤 종료됩니다.</li>
+   <li><b>파산</b>: 원·칩·핏빛코인이 모두 바닥나면 종료돼요. 사채가 남아 있으면 '사채 엔딩'입니다.</li>
+   <li>엔딩에서 내 승률·환수율과 사채 통계를 확인할 수 있어요.</li></ul>
+   <div class="note">⚠️ 이 게임은 도박 예방 교육용 시뮬레이션입니다. 실제 돈은 오가지 않아요. 도박으로 고민이 있다면 청소년 상담 1388 또는 도박문제 상담 1336에 도움을 요청하세요.</div>`
  ];
- HELP.splice(1,0,
- `<span class="hd">🔐 권한 설정 (설치 후 1회)</span>
-  <ul><li><b>① 기기 관리자</b>: '관리자' 버튼 → 활성화. 삭제를 막고 파산 시 화면을 잠가요.</li>
-  <li><b>② 접근성</b>: Android 13 이상은 먼저 '앱 정보' 버튼 → 오른쪽 위 ⋮ → <b>제한된 설정 허용</b>. 그다음 '접근성' 버튼 → 설치된 앱 → GAMBLE! → 켜기.</li>
-  <li><b>③ 배터리</b>: '배터리' 버튼 → GAMBLE!을 <b>제한 없음(최적화 안 함)</b>으로 바꾸세요. 아니면 앱 제한이 꺼질 수 있어요.</li>
-  <li><b>④ 필수 앱 4개</b>: 잠금 중에도 써야 하는 앱 4개를 고르세요. 전화·문자는 항상 허용돼요. '앱 재선택'으로 바꿀 수 있어요.</li></ul>
-  <div class="note">화면의 '권한 체크'가 모두 ✅가 되면 준비 완료입니다. 앱을 다시 열어도 설정은 유지돼요.</div>`,
- `<span class="hd">📵 앱 제한 방식</span>
-  <ul><li>평소에는 모든 앱을 쓸 수 있어요. 단, 필수 앱 4개와 전화·문자를 뺀 앱의 <b>하루 사용 시간</b>(자정 초기화)이 <b>가진 자산 분량</b>을 넘으면 그 앱들이 막혀요.</li>
-  <li><b>파산 후 24시간</b> 동안에도 필수 앱 4개, 전화·문자, GAMBLE!만 쓸 수 있어요.</li>
-  <li>막힌 앱을 열면 <b>자동으로 홈 화면</b>으로 돌아갑니다.</li>
-  <li>자산이 늘면 허용 시간도 함께 늘어납니다.</li></ul>
-  <div class="note">필수 앱은 사용 시간에 포함되지 않고 언제든 쓸 수 있어요.</div>`);
  let hpg=0;
  function help(p){hpg=Math.max(0,Math.min(HELP.length-1,p));
   $('hb').innerHTML=HELP[hpg];
@@ -253,41 +227,19 @@
  $('hn').onclick=()=>{if(hpg===HELP.length-1){$('m4').classList.remove('on')}else help(hpg+1)};
  $('hx').onclick=()=>$('m4').classList.remove('on');
 
- // ===== 현실 시간 처리 (차단 해제 / 사채 자동 상환) =====
- const hms=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(n=>String(n).padStart(2,'0')).join(':')};
- function lockUI(){const left=S.ub-Date.now();if(left<=0){unlock();return}
-  $('lt').textContent=S.lr+'\n해제까지 '+hms(left)+'\n해제 후 60,000원(1시간)이 지급됩니다.'}
- function tick(){
-  if(S.ub){lockUI();return}
-  if(!S.debt)return;
-  if(!S.busy&&Date.now()-S.dt>=REPAY_MS){
-   let tot=0,n=0;
-   while(S.debt&&Date.now()-S.dt>=REPAY_MS){S.dt+=REPAY_MS;tot+=repay(Math.max(MIN_REPAY,Math.ceil(S.debt*REPAY_RATIO/1000)*1000));n++}
-   $('msg').textContent=`⏱ 현실 ${n*REPAY_MS/3600000}시간 경과 → 사채 ${f(tot)} 자동 상환`;
-   beep(400,300);upd()}
-  if(S.debt&&!S.ub)$('dtm').textContent=hms(S.dt+REPAY_MS-Date.now())}
- $('rst').onclick=e=>{e.stopPropagation();ask('저장된 시연 데이터를 모두 지울까요?',()=>{try{localStorage.removeItem(KEY)}catch(x){}location.reload()},'지우기','취소')};
- if(S.ub){document.querySelectorAll('.scr').forEach(x=>x.classList.remove('on'));$('s3').classList.add('on');lockUI()}
- setInterval(tick,1000);
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});
 
- // ===== 권한 체크 / 허용 앱 선택 (앱 전용) =====
- function perm(){if(!window.Admin)return;$('perm').style.display='block';
-  $('p1').textContent=Admin.isAdmin()?'✅':'❌ 필요';
-  $('p2').textContent=Admin.isAccessOn()?'✅':'❌ 필요';
-  $('p3').textContent=S.picked?'✅':'❌ 필요';
-  $('pu').textContent='오늘 '+Admin.usedMin()+'분 사용'}
- $('pb1').onclick=()=>Admin.enable();$('pb2').onclick=()=>Admin.openAccess();
- $('pb3').onclick=()=>Admin.openAppInfo();$('pb4').onclick=()=>Admin.openBattery();$('pb5').onclick=()=>pick();
- setInterval(perm,2000);
- let AP=[],SEL=new Set();
- function pick(){AP=JSON.parse(Admin.getApps()).sort((x,y)=>x.n.localeCompare(y.n,'ko'));SEL=new Set(S.apps||[]);$('aps').value='';$('apn').textContent='';drawAp();$('m5').classList.add('on')}
- function drawAp(){const q=$('aps').value.trim().toLowerCase();
-  $('apl').innerHTML=AP.filter(x=>x.n.toLowerCase().includes(q)).map(x=>`<div class="ap${SEL.has(x.p)?' on':''}" data-p="${x.p}"><img src="data:image/png;base64,${x.i}"><span>${x.n}</span><b>${SEL.has(x.p)?'✓':''}</b></div>`).join('')||'<div style="opacity:.6;padding:8px">검색 결과 없음</div>';
-  $('apc').textContent=SEL.size+' / 4';$('apok').disabled=SEL.size!==4}
- $('apl').onclick=e=>{const r=e.target.closest('.ap');if(!r)return;const p=r.dataset.p;
-  if(SEL.has(p))SEL.delete(p);else if(SEL.size<4)SEL.add(p);else{$('apn').textContent='4개까지 선택할 수 있어요';return}
-  $('apn').textContent='';drawAp()};
- $('aps').oninput=drawAp;
- $('apok').onclick=()=>{S.apps=[...SEL];Admin.setAllowed(S.apps.join(','));S.picked=1;save();$('m5').classList.remove('on');perm();help(1)};
+ // ===== 엔딩 =====
+ function finish(k){if(over)return;over=true;try{localStorage.removeItem(KEY)}catch(e){}
+  if(k!=='goal'&&S.won-S.debt<0)k='debt';
+  const net=S.won-S.debt,T={
+   goal:['🏆','BAD ENDING?','피규어를 샀다… 하지만 확률상 집은 늘 이긴다. 당신은 극소수의 운 좋은 예외였을 뿐.'],
+   quit:['🚪','포기 엔딩','도박장을 나왔다. '+(net>=START?'그래도 잃지 않았다. 멈출 줄 아는 것이 진짜 승부사다.':'잃은 돈은 돌아오지 않는다. 피규어는 여전히 먼 이야기.')],
+   bankrupt:['💸','파산 엔딩','통장도 칩도 텅 비었다. 777의 환상 뒤에는 언제나 하우스의 확률이 있었다.'],
+   debt:['💀','사채 엔딩','빚 '+f(S.debt-S.won)+'이 남았다. 사채는 포기해도 따라온다.']}[k];
+  setTimeout(()=>go('s3',()=>{$('ee').textContent=T[0];$('et').textContent=T[1];$('ep').textContent=T[2];
+   $('es').textContent=`플레이 ${S.spins.toLocaleString()}회 · 최종 ${f(net)}(빚 상환 후) · 순손익 ${f(net-START)}`;stat()}),300)}
+ function stat(){let w=0,ev=0;for(let v=0;v<1000;v++){const m=judge(v/100|0,(v/10|0)%10,v%10)[0];if(m>=1)w++;ev+=m}
+  const p=S.spins?S.W/S.spins*100:0,rr=S.wag?S.ret/S.wag*100:0;
+  $('ew').innerHTML=`<div class="sh">---플레이 데이터---</div>승률 : <b>${p.toFixed(1)}%</b> <span class="lb">(×1 이상 횟수 / 전체 플레이 횟수)</span><br>전체 플레이 횟수 : <b>${S.spins.toLocaleString()}</b><br>환수율 : <b>${rr.toFixed(1)}%</b><br>베팅금 : <b>${f(S.wag*1000)}</b><br>회수 : <b>${f(S.ret*1000)}</b><div class="sh">---통계적 데이터---</div>승률 : <b>${(w/10).toFixed(1)}%</b><br>환수율 : <b>${(ev/10).toFixed(1)}%</b><div class="wn">⚠️ 환수율이 100%보다 낮은 도박은 오래 할수록 잃도록 설계되어 있습니다.</div>`;
+  if(S.loans){$('ed').style.display='block';$('ed').innerHTML=`사채 원금 : <b>${f(S.prin)}</b><br>이자 누적 : <b>${f(S.intr)}</b><br>총 채무 : <b>${f(S.prin+S.intr)}</b><div class="wn" style="color:var(--red)">⚠️ 사채 이자는 도박을 멈춰도 계속 쌓입니다. 승률 ${(w/10).toFixed(1)}%짜리 도박으로 갚는 건 불가능에 가깝습니다.</div>`}}
 </script></body></html>
