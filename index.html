@@ -240,6 +240,6 @@
    $('es').textContent=`플레이 ${S.spins.toLocaleString()}회 · 최종 ${f(net)}(빚 상환 후) · 순손익 ${f(net-START)}`;stat()}),300)}
  function stat(){let w=0,ev=0;for(let v=0;v<1000;v++){const m=judge(v/100|0,(v/10|0)%10,v%10)[0];if(m>=1)w++;ev+=m}
   const p=S.spins?S.W/S.spins*100:0,rr=S.wag?S.ret/S.wag*100:0;
-  $('ew').innerHTML=`<div class="sh">---플레이 데이터---</div>승률 : <b>${p.toFixed(1)}%</b> <span class="lb">(×1 이상 횟수 / 전체 플레이 횟수)</span><br>전체 플레이 횟수 : <b>${S.spins.toLocaleString()}</b><br>환수율 : <b>${rr.toFixed(1)}%</b><br>베팅금 : <b>${f(S.wag*1000)}</b><br>회수 : <b>${f(S.ret*1000)}</b><div class="sh">---통계적 데이터---</div>승률 : <b>${(w/10).toFixed(1)}%</b><br>환수율 : <b>${(ev/10).toFixed(1)}%</b><div class="wn">⚠️ 환수율이 100%보다 낮은 도박은 오래 할수록 잃도록 설계되어 있습니다.</div>`;
+  $('ew').innerHTML=`<div class="sh">---플레이 데이터---</div>승률 : <b>${p.toFixed(1)}%</b> <span class="lb">(×1 이상 횟수 / 전체 플레이 횟수)</span><br>전체 플레이 횟수 : <b>${S.spins.toLocaleString()}</b><br>환수율 : <b>${rr.toFixed(1)}%</b><br>베팅금 : <b>${f(S.wag*1000)}</b><br>회수 : <b>${f(S.ret*1000)}</b><div class="sh">---시뮬레이터 통계---</div>승률 : <b>${(w/10).toFixed(1)}%</b><br>환수율 : <b>${(ev/10).toFixed(1)}%</b><div class="wn">⚠️ 환수율이 100%보다 낮은 도박은 오래 할수록 잃도록 설계되어 있습니다.</div>`;
   if(S.loans){$('ed').style.display='block';$('ed').innerHTML=`사채 원금 : <b>${f(S.prin)}</b><br>이자 누적 : <b>${f(S.intr)}</b><br>총 채무 : <b>${f(S.prin+S.intr)}</b><div class="wn" style="color:var(--red)">⚠️ 사채 이자는 도박을 멈춰도 계속 쌓입니다. 승률 ${(w/10).toFixed(1)}%짜리 도박으로 갚는 건 불가능에 가깝습니다.</div>`}}
 </script></body></html>
