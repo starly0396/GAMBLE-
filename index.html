@@ -139,7 +139,7 @@
  function judge(a,b,c){const v=a*100+b*10+c;
   if(v===777)return[17,'JACKPOT 777!'];
   if(a===b&&b===c)return[a,'트리플 '+v];
-  if(c-b===1&&b-a===1)return[1.5,'연속 '+v];
+  if(c-b===b-a)return[1.5,'연속 '+v];
   for(let n=1;n<=9;n++)if(v===n*100+n*n)return[1.5,'특수 '+v];
   if((a===b&&a>4)||(b===c&&b>4)||(a===c&&c>4))return[1.5,'페어(u) '+v];
   if((a===b&&a<5)||(b===c&&b<5)||(a===c&&c<5))return[1.2,'페어(d) '+v];
