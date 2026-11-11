@@ -126,7 +126,7 @@
  // ===== 설정값 =====
  const KEY='gambler_v1',
     GOAL=43960000,START=400000; // 목표금액 / 초기금액
- let S={won:START,chips:0,blood:0,spins:0,debt:0,busy:false,W:0,wag:0,ret:0,prin:0,intr:0,loans:0},ac,over=false;
+ let S={won:START,chips:0,blood:0,spins:0,debt:0,busy:false,W:0,wag:0,ret:0,prin:0,intr:0,loans:0,zw:0,u2:0,u3:0,u7:0,rg:[]},ac,over=false;
  function save(){if(over)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
  try{const j=JSON.parse(localStorage.getItem(KEY));if(j&&typeof j==='object'){Object.assign(S,j);S.busy=false}}catch(e){}
  const rate=()=>S.spins<=4000?1000:S.spins<=8000?500:250;
@@ -164,7 +164,12 @@
  $('sell').onclick=()=>{if(!S.chips)return;S.won+=S.chips*rate();S.chips=0;beep();upd();chk()};
  $('spin').onclick=()=>{let b=Math.floor(+$('bet').value);if(!(b>=1)||b>S.chips+S.blood){$('msg').textContent='베팅 칩 확인';return}
   const fromN=Math.min(S.chips,b),fromB=b-fromN;S.chips-=fromN;S.blood-=fromB;S.spins++;S.busy=true;upd();
-  const res=[0,1,2].map(()=>Math.random()*10|0),rs=[0,1,2].map(i=>$('r'+i));rs.forEach(r=>r.classList.add('sp'));$('msg').textContent='...';
+  let res=[0,1,2].map(()=>Math.random()*10|0);
+  {const c0=S.chips+fromN,b0=S.blood+fromB;if(S.won<1000)S.zw=1; // 연출: 원화 소진 경험 후에만 작동(각 1회)
+   if(S.zw&&!S.u7&&S.won<1000&&c0===0&&b0>=1&&b0<=10){res=[7,7,7];S.u7=1;S.rg.push('777')}
+   else if(S.zw&&!S.u2&&c0+b0<=50){res=[2,2,2];S.u2=1;S.rg.push('222')}
+   else if(S.zw&&!S.u3&&c0+b0<=50){res=[3,3,3];S.u3=1;S.rg.push('333')}}
+  const rs=[0,1,2].map(i=>$('r'+i));rs.forEach(r=>r.classList.add('sp'));$('msg').textContent='...';
   const iv=setInterval(()=>{rs.forEach(r=>r.classList.contains('sp')&&(r.textContent=Math.random()*10|0));beep(300,0)},70);
   rs.forEach((r,i)=>setTimeout(()=>{r.classList.remove('sp');r.textContent=res[i];beep(500+i*150,0);
    if(i<2)return;clearInterval(iv);
@@ -240,7 +245,8 @@
   setTimeout(()=>go('s3',()=>{$('ee').textContent=T[0];$('et').textContent=T[1];$('ep').textContent=T[2];
    $('es').textContent=`플레이 ${S.spins.toLocaleString()}회 · 최종 ${f(net)}(빚 상환 후) · 순손익 ${f(net-START)}`;stat()}),300)}
  function stat(){let w=0,ev=0;for(let v=0;v<1000;v++){const m=judge(v/100|0,(v/10|0)%10,v%10)[0];if(m>=1)w++;ev+=m}
-  const p=S.spins?S.W/S.spins*100:0,rr=S.wag?S.ret/S.wag*100:0;
-  $('ew').innerHTML=`<div class="sh">---플레이 데이터---</div>승률 : <b>${p.toFixed(1)}%</b> <span class="lb">(×1 이상 횟수 / 전체 플레이 횟수)</span><br>전체 플레이 횟수 : <b>${S.spins.toLocaleString()}</b><br>환수율 : <b>${rr.toFixed(1)}%</b><br>베팅금 : <b>${f(S.wag*1000)}</b><br>회수 : <b>${f(S.ret*1000)}</b><div class="sh">---시뮬레이터 통계---</div>승률 : <b>${(w/10).toFixed(1)}%</b><br>환수율 : <b>${(ev/10).toFixed(1)}%</b><div class="sh">---실제 도박 통계(국내 합법 사행산업 환수율)---</div><table class="rt"><tr><td>카지노 (테이블 게임)<span class="lb">블랙잭·바카라 등 / 하우스 엣지 1~2% 내외로 가장 높음</span></td><td>95~99%</td></tr><tr><td>카지노 (슬롯머신)<span class="lb">강원랜드·글로벌 카지노 기준, 기기 설정에 따라 다름</span></td><td>85~95%</td></tr><tr><td>경마 / 경륜 / 경정<span class="lb">마권 세금·발매 수수료(약 27%)를 뺀 금액을 환급</span></td><td>약 73%</td></tr><tr><td>스포츠토토 (체육진흥투표권)<span class="lb">국민체육진흥법에 따른 발행 규정·고정 배당률</span></td><td>50~70%</td></tr><tr><td>로또 / 연금복권<span class="lb">총판매액의 절반은 복권기금(공익사업)·운영비로 차감</span></td><td>약 50%</td></tr></table><div class="lb" style="text-align:right;margin-top:4px">출처: 사행산업통합감독위원회(NGCC) 사행산업 관련 통계, 한국마사회(KRA) 공시 자료</div><div class="wn" style="color:var(--red)"><b>⚠️ 불법도박은 관리자가 임의로 확률을 변동시킬 수 있어, 실제 환수율은 위 수치보다 더더욱 떨어집니다.</b></div><div class="wn">⚠️ 환수율이 100%보다 낮은 도박은 오래 할수록 잃도록 설계되어 있습니다.</div>`;
+  const p=S.spins?S.W/S.spins*100:0,rr=S.wag?S.ret/S.wag*100:0,
+   RV=(S.rg&&S.rg.length)?`<div class="wn" style="color:var(--red)"><b>🎭 연출 공개</b><br>이 게임은 원화가 바닥난 뒤 다음 결과를 일부러 당첨시켰습니다.<br>`+S.rg.map(k=>'• '+({'222':'칩+B 50 이하 → 222','333':'칩+B 50 이하 → 333','777':'B만 남아 10개 이하 → 777'})[k]).join('<br>')+`<br><b>불법 도박장은 이렇게 '한 번 더'를 유도하고, 확률도 마음대로 바꿉니다.</b></div>`:'';
+  $('ew').innerHTML=`<div class="sh">---플레이 데이터---</div>승률 : <b>${p.toFixed(1)}%</b> <span class="lb">(×1 이상 횟수 / 전체 플레이 횟수)</span><br>전체 플레이 횟수 : <b>${S.spins.toLocaleString()}</b><br>환수율 : <b>${rr.toFixed(1)}%</b><br>베팅금 : <b>${f(S.wag*1000)}</b><br>회수 : <b>${f(S.ret*1000)}</b><div class="sh">---시뮬레이터 통계---</div>승률 : <b>${(w/10).toFixed(1)}%</b><br>환수율 : <b>${(ev/10).toFixed(1)}%</b><div class="sh">---실제 도박 통계(국내 합법 사행산업 환수율)---</div><table class="rt"><tr><td>카지노 (테이블 게임)<span class="lb">블랙잭·바카라 등 / 하우스 엣지 1~2% 내외로 가장 높음</span></td><td>95~99%</td></tr><tr><td>카지노 (슬롯머신)<span class="lb">강원랜드·글로벌 카지노 기준, 기기 설정에 따라 다름</span></td><td>85~95%</td></tr><tr><td>경마 / 경륜 / 경정<span class="lb">마권 세금·발매 수수료(약 27%)를 뺀 금액을 환급</span></td><td>약 73%</td></tr><tr><td>스포츠토토 (체육진흥투표권)<span class="lb">국민체육진흥법에 따른 발행 규정·고정 배당률</span></td><td>50~70%</td></tr><tr><td>로또 / 연금복권<span class="lb">총판매액의 절반은 복권기금(공익사업)·운영비로 차감</span></td><td>약 50%</td></tr></table><div class="lb" style="text-align:right;margin-top:4px">출처: 사행산업통합감독위원회(NGCC) 사행산업 관련 통계, 한국마사회(KRA) 공시 자료</div><div class="wn" style="color:var(--red)"><b>⚠️ 불법도박은 관리자가 임의로 확률을 변동시킬 수 있어, 실제 환수율은 위 수치보다 더더욱 떨어집니다.</b></div><div class="wn">⚠️ 환수율이 100%보다 낮은 도박은 오래 할수록 잃도록 설계되어 있습니다.</div>${RV}`;
   if(S.loans){$('ed').style.display='block';$('ed').innerHTML=`사채 원금 : <b>${f(S.prin)}</b><br>이자 누적 : <b>${f(S.intr)}</b><br>총 채무 : <b>${f(S.prin+S.intr)}</b><div class="wn" style="color:var(--red)">⚠️ 사채 이자는 도박을 멈춰도 계속 쌓입니다. 승률 ${(w/10).toFixed(1)}%짜리 도박으로 갚는 건 불가능에 가깝습니다.</div>`}}
 </script></body></html>
